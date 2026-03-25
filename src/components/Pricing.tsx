@@ -10,7 +10,7 @@ const CheckIcon = () => (
 );
 
 const CrossIcon = () => (
-    <svg className="w-5 h-5 text-gray-00 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg className="w-5 h-5 text-red-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
     </svg>
 );
@@ -23,7 +23,7 @@ export default function Pricing() {
     const mouseY = useMotionValue(0);
 
     function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
-        let { left, top } = currentTarget.getBoundingClientRect();
+        const { left, top } = currentTarget.getBoundingClientRect();
         mouseX.set(clientX - left);
         mouseY.set(clientY - top);
     }
@@ -82,7 +82,7 @@ export default function Pricing() {
             badge: "Best Selling",
             gradient: "from-purple-500 to-pink-500",
         },
-    
+
         {
             name: "Campus Connect Plan",
             category: "school",
@@ -203,15 +203,19 @@ export default function Pricing() {
             name: "Enterprise",
             category: "license",
             price: "1,50,000",
-            period: "(One-time)",
-            description: "Perpetual license for large universities.",
+            period: "/one-time",
+            description: "Perpetual license for large organizations",
             features: [
                 "Unlimited Users & Roles",
-                "Custom Development",
+                "Customized Development",
                 "Self-Hosted Option",
                 "Lifetime Ownership",
                 "Priority 24/7 Support",
-                "API Access",
+                "Email and Whatsapp API",
+                "Full data backup",
+                "Data Insights and Analytics",
+                "Data handover per month",
+                "On demand customization any time"
             ],
             missing: [],
             cta: "Contact Sales",
@@ -380,6 +384,23 @@ export default function Pricing() {
                                                     </ul>
                                                 </div>
                                             ))}
+                                            {plan.missing && plan.missing.length > 0 && (
+                                                <div>
+                                                    <h4 className="text-xs font-bold text-red-400 uppercase tracking-wider mb-3 pb-2 border-b border-gray-100">
+                                                        Not Included
+                                                    </h4>
+                                                    <ul className="space-y-3">
+                                                        {plan.missing.map((feature, idx) => (
+                                                            <li key={idx} className="flex items-start opacity-60">
+                                                                <div className="shrink-0 mt-0.5">
+                                                                    <CrossIcon />
+                                                                </div>
+                                                                <span className="ml-3 text-sm text-gray-500 line-through">{feature}</span>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            )}
                                         </div>
                                     ) : (
                                         <ul className="space-y-4 mb-8">
