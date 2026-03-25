@@ -1,8 +1,27 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import dashboard from "../../public/images/hero-sections/admin-dashboard.png"
+import attendance from "../../public/images/hero-sections/attendance.png"
 
 export default function Hero() {
+    const heroImages = [
+        dashboard,
+        attendance,
+    ];
+
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+        }, 5000); // Change image every 5 seconds
+
+        return () => clearInterval(timer);
+    }, [heroImages.length]);
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -103,95 +122,69 @@ export default function Hero() {
                         </motion.div>
                     </motion.div>
 
-                    {/* Right side - Enhanced animated mockup */}
+                    {/* Right side - Product Image */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1, delay: 0.3 }}
                         className="relative hidden lg:block"
                     >
                         {/* Glow effect */}
-                        <div className="absolute -inset-4 bg-linear-to-r from-indigo-600 via-purple-600 to-blue-600 rounded-3xl blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+                        <div className="absolute -inset-4 bg-linear-to-r from-indigo-600 via-purple-600 to-blue-600 rounded-3xl blur-3xl opacity-20"></div>
 
-                        {/* Dashboard mockup - Premium Design */}
                         <motion.div
-                            animate={{ y: [0, -15, 0], rotateX: [0, 2, 0] }}
-                            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                            className="relative bg-white rounded-3xl shadow-2xl p-8 border border-gray-100 overflow-hidden"
-                            style={{ perspective: '1200px' }}
+                            animate={{ y: [0, -10, 0] }}
+                            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                            className="relative bg-white rounded-2xl shadow-2xl border border-gray-200/50 overflow-hidden"
                         >
-                            {/* Header with gradient */}
-                            <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-indigo-600 via-purple-600 to-blue-600"></div>
-
-                            {/* Animated background pattern */}
-                            <div className="absolute inset-0 opacity-5">
-                                <div className="absolute inset-0 bg-[linear-gradient(45deg,#e5e7eb_25%,transparent_25%,transparent_50%,#e5e7eb_50%,#e5e7eb_75%,transparent_75%,transparent)] bg-size-[40px_40px]"></div>
+                            {/* Browser/Window Bar for realism */}
+                            <div className="h-8 bg-gray-50 border-b border-gray-100 flex items-center px-4 gap-2">
+                                <div className="w-2.5 h-2.5 rounded-full bg-red-400"></div>
+                                <div className="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
+                                <div className="w-2.5 h-2.5 rounded-full bg-green-400"></div>
+                                <div className="ml-4 h-4 w-64 bg-white rounded-md border border-gray-200 opacity-50"></div>
                             </div>
 
-                            <div className="relative space-y-6">
-                                {/* Top bar with user avatar */}
-                                <div className="flex justify-between items-center pb-4 border-b border-gray-100">
-                                    <div className="space-y-1 flex-1">
-                                        <div className="h-3 w-40 bg-linear-to-r from-indigo-200 to-blue-200 rounded-full"></div>
-                                        <div className="h-2 w-56 bg-gray-100 rounded-full mt-2"></div>
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <div className="w-10 h-10 bg-linear-to-br from-indigo-500 to-blue-600 rounded-full"></div>
-                                        <div className="w-10 h-10 bg-gray-100 rounded-full"></div>
-                                    </div>
-                                </div>
+                            <div className="relative w-full aspect-video bg-gray-50 flex items-center justify-center overflow-hidden">
+                                <AnimatePresence mode="popLayout">
+                                    <motion.div
+                                        key={currentImageIndex}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.5 }}
+                                        className="absolute inset-0 p-1"
+                                    >
+                                        <Image
+                                            src={heroImages[currentImageIndex]}
+                                            alt={`CampusBaba Dashboard Interface ${currentImageIndex + 1}`}
+                                            fill
+                                            className="object-contain"
+                                            priority={currentImageIndex === 0}
+                                            placeholder="blur"
+                                            sizes="(max-width: 768px) 100vw, 50vw"
+                                        />
+                                    </motion.div>
+                                </AnimatePresence>
+                            </div>
 
-                                {/* KPI Cards with animation */}
-                                <div className="grid grid-cols-3 gap-4">
-                                    {[0, 1, 2].map((i) => (
-                                        <motion.div
-                                            key={i}
-                                            animate={{ y: [0, -5, 0] }}
-                                            transition={{ delay: i * 0.1, duration: 3, repeat: Infinity }}
-                                            className="bg-linear-to-br from-indigo-50 to-blue-50 rounded-xl p-4 border border-indigo-100 hover:border-indigo-300 transition-colors"
-                                        >
-                                            <div className="h-2 w-16 bg-indigo-300 rounded-full mb-3"></div>
-                                            <div className="h-6 w-20 bg-linear-to-r from-indigo-600 to-blue-600 rounded-lg"></div>
-                                        </motion.div>
-                                    ))}
-                                </div>
-
-                                {/* Chart area */}
-                                <div className="space-y-3">
-                                    <div className="h-2 w-32 bg-gray-200 rounded-full"></div>
-                                    <div className="h-32 bg-gray-50 rounded-xl p-4 relative overflow-hidden">
-                                        {/* Animated bars */}
-                                        <div className="flex items-end gap-2 h-full">
-                                            {[40, 65, 45, 70, 50, 80, 55].map((height, i) => (
-                                                <motion.div
-                                                    key={i}
-                                                    initial={{ height: 0 }}
-                                                    animate={{ height: `${height}%` }}
-                                                    transition={{ delay: i * 0.1, duration: 0.8 }}
-                                                    className="flex-1 bg-linear-to-t from-indigo-500 to-blue-400 rounded-t opacity-70 hover:opacity-100 transition-opacity"
-                                                ></motion.div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Table preview */}
-                                <div className="space-y-2">
-                                    {[0, 1, 2].map((i) => (
-                                        <motion.div
-                                            key={i}
-                                            animate={{ x: [0, 4, 0] }}
-                                            transition={{ delay: i * 0.15, duration: 2, repeat: Infinity }}
-                                            className="flex gap-2 items-center"
-                                        >
-                                            <div className="w-8 h-8 bg-linear-to-br from-purple-400 to-blue-400 rounded-lg shrink-0"></div>
-                                            <div className="flex-1 h-2 bg-gray-100 rounded-full"></div>
-                                            <div className="w-12 h-2 bg-green-200 rounded-full"></div>
-                                        </motion.div>
-                                    ))}
-                                </div>
+                            {/* Slide Indicators */}
+                            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+                                {heroImages.map((_, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => setCurrentImageIndex(idx)}
+                                        className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentImageIndex
+                                            ? "bg-indigo-600 w-6"
+                                            : "bg-gray-300 hover:bg-gray-400"
+                                            }`}
+                                        aria-label={`Go to slide ${idx + 1}`}
+                                    />
+                                ))}
                             </div>
                         </motion.div>
+
+
                     </motion.div>
                 </div>
             </div>
