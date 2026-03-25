@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, MouseEvent } from "react";
+import { motion, AnimatePresence, useMotionValue, useMotionTemplate } from "framer-motion";
 
 const CheckIcon = () => (
     <svg className="w-5 h-5 text-indigo-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -9,72 +10,114 @@ const CheckIcon = () => (
 );
 
 const CrossIcon = () => (
-    <svg className="w-5 h-5 text-gray-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg className="w-5 h-5 text-gray-00 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
     </svg>
 );
 
 export default function Pricing() {
-    // const [isAnnual, setIsAnnual] = useState(false);
+    const [activeCategory, setActiveCategory] = useState<'school' | 'tutor' | 'license'>('school');
+
+    // Mouse tracking for interactive background
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+
+    function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
+        let { left, top } = currentTarget.getBoundingClientRect();
+        mouseX.set(clientX - left);
+        mouseY.set(clientY - top);
+    }
 
     const plans = [
         {
-            name: "Starter",
+            name: "SME Plan",
+            category: "school",
             price: "1,499",
             period: "/month",
             description: "Essential tools for admin & teacher management.",
             features: [
                 "Admin & Teacher Management",
-                "Financial Management",
+                "Free Teacher Portal",
+                "Full Academic Control",
+                "Student Payment Management",
                 "Reports & Analytics",
                 "Notice Management",
-                "3 Admins",
-                "10 Teachers",
+                "3 Admins & 10 Teachers Access",
             ],
             missing: [
                 "Parent & Student Portal",
-                "Exam Performance Insights",
-                "Daily Backups",
+                "Parent Communication",
+                "API support",
+                "Data backup",
+                "Custom Reports",
             ],
             cta: "Get Started",
             popular: false,
             gradient: "from-blue-500 to-cyan-500",
         },
         {
-            name: "Individual",
-            price: "1,000",
+            name: "Individual Plan",
+            category: "tutor",
+            price: "1000",
             period: "/month",
             description: "Perfect for solo educators and tutors.",
             features: [
-                "Basic Admin Features",
-                "Attendance Tracking",
-                "Grade Management",
-                "Schedule View",
-                "1 Admin",
-                "5 Teachers",
+                "Admin & Teacher Management",
+                "Free Teacher Portal",
+                "Full Academic Control",
+                "Student Payment Management",
+                "Reports & Analytics",
+                "Notice Management",
+                "1 Admin & 1 Teachers Access",
             ],
             missing: [
-                "Parent Portal",
-                "Financial Management",
+                "Parent & Student Portal",
+                "Parent Communication",
+                "API support",
+                "Data backup",
                 "Custom Reports",
             ],
             cta: "Start Now",
-            popular: false,
+            popular: true,
             badge: "Best Selling",
             gradient: "from-purple-500 to-pink-500",
         },
+    
         {
-            name: "CampusBaba",
+            name: "Campus Connect Plan",
+            category: "school",
             price: "1,499",
-            period: "/mo + ৳15/student",
-            description: "Complete solution for growing institutions.",
-            features: [
-                "Everything in Starter",
-                "Parent & Student Portal",
-                "Exam Performance Insights",
-                "Fee Tracking & Online Payment",
-                "Unlimited Support",
-                "4 Admins & 12 Teachers",
+            period: "15/month (per student)",
+            description: "Perfect combo of SME Plan + Student Pass.",
+            features: [],
+            groupedFeatures: [
+                {
+                    title: "Admin Features",
+                    items: [
+                        "Admin & Teacher Management",
+                        "Free Teacher Portal",
+                        "Full Academic Control",
+                        "Student Payment Management",
+                        "Reports & Analytics",
+                        "Notice Management",
+                        "Fee Tracking",
+                        "4 Admins & 12 Teachers",
+                        "Unlimited Support"
+                    ]
+                },
+                {
+                    title: "Parent Features",
+                    items: [
+                        "Parent & Student Portal",
+                        "Class routine and schedule",
+                        "Regular Attendance Tracking",
+                        "Exam Performance Insights",
+                        "Exam marks monitoring",
+                        "Exam schedule update",
+                        "Payment Status and History",
+                        "Notice & Announcement"
+                    ]
+                }
             ],
             missing: [],
             cta: "Get Full Access",
@@ -83,7 +126,82 @@ export default function Pricing() {
             gradient: "from-indigo-600 via-purple-600 to-pink-600",
         },
         {
+            name: "Student Pass (For Students)",
+            category: "school",
+            price: "15",
+            period: "/month (per student)",
+            description: "Bridge the gap between teachers and parents with student pass",
+            features: [],
+            groupedFeatures: [
+
+                {
+                    title: "Parent / Student Features",
+                    items: [
+                        "Parent & Student Portal",
+                        "1 student and 1 parent account",
+                        "Class routine and schedule",
+                        "Regular Attendance Tracking",
+                        "Exam Performance Insights",
+                        "Exam marks monitoring",
+                        "Exam schedule update",
+                        "Payment Status and History",
+                        "Notice & Announcement",
+                        "1:3 parent-student ratio"
+                    ]
+                }
+            ],
+            missing: [
+                "Parent & Student Portal",
+                "Parent Communication",
+                "API support",
+                "Data backup",
+                "Custom Reports",
+            ],
+            cta: "Get Full Access",
+            popular: false,
+            badge: "Parents Demand",
+            gradient: "from-indigo-600 via-purple-600 to-pink-600",
+        },
+        {
+            name: "Student Pass (For Students)",
+            category: "tutor",
+            price: "15",
+            period: "/month (per student)",
+            description: "Bridge the gap between teachers and parents with student pass",
+            features: [],
+            groupedFeatures: [
+
+                {
+                    title: "Parent / Student Features",
+                    items: [
+                        "Parent & Student Portal",
+                        "1 student and 1 parent account",
+                        "Class routine and schedule",
+                        "Regular Attendance Tracking",
+                        "Exam Performance Insights",
+                        "Exam marks monitoring",
+                        "Exam schedule update",
+                        "Payment Status and History",
+                        "Notice & Announcement",
+                        "1:3 parent-student ratio"
+                    ]
+                }
+            ],
+            missing: [
+                "Parent & Student Portal",
+                "Parent Communication",
+                "API support",
+                "Data backup",
+                "Custom Reports",
+            ],
+            cta: "Get Full Access",
+            popular: false,
+            badge: "Parents Demand",
+            gradient: "from-indigo-600 via-purple-600 to-pink-600",
+        },
+        {
             name: "Enterprise",
+            category: "license",
             price: "1,50,000",
             period: "(One-time)",
             description: "Perpetual license for large universities.",
@@ -102,17 +220,34 @@ export default function Pricing() {
         },
     ];
 
+    const filteredPlans = plans.filter(p => p.category === activeCategory);
+
     return (
-        <section className="py-24 relative overflow-hidden bg-gray-50 h-full" id="pricing">
-            {/* Background Decorations */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                <div className="absolute top-[-10%] right-[-5%] w-125 h-125 rounded-full bg-purple-200/40 blur-3xl mix-blend-multiply opacity-70 animate-blob"></div>
-                <div className="absolute top-[20%] left-[-10%] w-100 h-100 rounded-full bg-indigo-200/40 blur-3xl mix-blend-multiply opacity-70 animate-blob animation-delay-2000"></div>
-                <div className="absolute bottom-[-10%] left-[20%] w-150 h-150 rounded-full bg-blue-200/40 blur-3xl mix-blend-multiply opacity-70 animate-blob animation-delay-4000"></div>
+        <section
+            className="py-24 relative overflow-hidden bg-white group"
+            id="pricing"
+            onMouseMove={handleMouseMove}
+        >
+            {/* Interactive Futuristic Background */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+                <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-indigo-500 opacity-20 blur-[100px]"></div>
+                <motion.div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                        background: useMotionTemplate`
+                            radial-gradient(
+                                650px circle at ${mouseX}px ${mouseY}px,
+                                rgba(79, 70, 229, 0.1),
+                                transparent 80%
+                            )
+                        `,
+                    }}
+                />
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="text-center max-w-3xl mx-auto mb-16">
+                <div className="text-center max-w-3xl mx-auto mb-12">
                     <motion.span
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -132,106 +267,155 @@ export default function Pricing() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="mt-6 text-xl text-gray-500"
+                        className="mt-6 text-lg text-gray-500"
                     >
-                        Choose the perfect plan for your needs. No hidden fees. Cancel anytime.
+                        Choose the perfect plan for your needs.
                     </motion.p>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
-                    {plans.map((plan, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.1 }}
-                            viewport={{ once: true }}
-                            className={`relative flex flex-col p-8 bg-white rounded-3xl transition-all duration-300 ${plan.popular
-                                ? 'ring-2 ring-indigo-600 shadow-2xl scale-105 z-10'
-                                : 'border border-gray-100 shadow-lg hover:shadow-xl hover:-translate-y-1'
-                                }`}
-                        >
-                            {plan.popular && (
-                                <div className="absolute top-0 right-0 -mt-4 mr-4">
-                                    <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide bg-linear-to-r from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-200">
-                                        Most Popular
-                                    </span>
-                                </div>
-                            )}
-                            {plan.badge && !plan.popular && (
-                                <div className="absolute top-0 right-0 -mt-4 mr-4">
-                                    <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide bg-emerald-100 text-emerald-700 border border-emerald-200">
-                                        {plan.badge}
-                                    </span>
-                                </div>
-                            )}
-
-                            <div className="mb-6">
-                                <h3 className="text-xl font-bold text-gray-900">{plan.name}</h3>
-                                <p className="mt-2 text-sm text-gray-500 leading-relaxed min-h-10">{plan.description}</p>
-                            </div>
-
-                            <div className="mb-6">
-                                <span className="text-4xl font-extrabold text-gray-900 tracking-tight">{plan.price}</span>
-                                <span className={`text-base font-medium ml-1 text-gray-500`}>
-                                    {plan.period === "(One-time)" ? "" : "৳"}
-                                    {plan.period}
-                                </span>
-                            </div>
-
-                            <div className="flex-1">
-                                <ul className="space-y-4 mb-8">
-                                    {plan.features.map((feature, idx) => (
-                                        <li key={idx} className="flex items-start">
-                                            <div className="shrink-0 mt-0.5">
-                                                <CheckIcon />
-                                            </div>
-                                            <span className="ml-3 text-sm text-gray-700 font-medium">{feature}</span>
-                                        </li>
-                                    ))}
-                                    {plan.missing.map((feature, idx) => (
-                                        <li key={idx} className="flex items-start opacity-60">
-                                            <div className="shrink-0 mt-0.5">
-                                                <CrossIcon />
-                                            </div>
-                                            <span className="ml-3 text-sm text-gray-500 line-through">{feature}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-
+                    {/* Category Toggle */}
+                    <div className="mt-8 flex justify-center">
+                        <div className="bg-white p-1 rounded-xl border border-gray-200 shadow-sm inline-flex relative">
+                            <motion.div
+                                className="absolute top-1 bottom-1 bg-indigo-600 rounded-lg shadow-sm z-0"
+                                initial={false}
+                                animate={{
+                                    left: activeCategory === 'school' ? '4px' : activeCategory === 'tutor' ? 'calc(33.33% + 4px)' : 'calc(66.66% + 4px)',
+                                    width: 'calc(33.33% - 5px)',
+                                    x: 0
+                                }}
+                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                            />
                             <button
-                                className={`w-full block text-center rounded-xl px-6 py-4 text-sm font-bold transition-all duration-200 ${plan.popular
-                                    ? 'bg-linear-to-r from-indigo-600 to-violet-600 text-white hover:shadow-lg hover:shadow-indigo-300'
-                                    : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100 hover:text-indigo-800'
+                                onClick={() => setActiveCategory('school')}
+                                className={`relative z-10 w-32 py-2.5 text-sm font-semibold rounded-lg transition-colors duration-200 ${activeCategory === 'school' ? 'text-white' : 'text-gray-500 hover:text-gray-900'
                                     }`}
                             >
-                                {plan.cta}
+                                Institutional
                             </button>
-                        </motion.div>
-                    ))}
-                </div>
-
-                {/* Additional Trust Section */}
-                <div className="mt-24 border-t border-gray-100 pt-16">
-                    <div className="grid md:grid-cols-3 gap-8 text-center">
-                        <div className="p-6">
-                            <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">🛡️</div>
-                            <h3 className="font-bold text-gray-900 mb-2">Secure & Private</h3>
-                            <p className="text-sm text-gray-500">Your institution&apos;s data is encrypted and backed up daily.</p>
-                        </div>
-                        <div className="p-6">
-                            <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">💬</div>
-                            <h3 className="font-bold text-gray-900 mb-2">24/7 Support</h3>
-                            <p className="text-sm text-gray-500">Dedicated support team available via WhatsApp and phone.</p>
-                        </div>
-                        <div className="p-6">
-                            <div className="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">⚡</div>
-                            <h3 className="font-bold text-gray-900 mb-2">Fast Setup</h3>
-                            <p className="text-sm text-gray-500">Get your institution running in less than 24 hours.</p>
+                            <button
+                                onClick={() => setActiveCategory('tutor')}
+                                className={`relative z-10 w-32 py-2.5 text-sm font-semibold rounded-lg transition-colors duration-200 ${activeCategory === 'tutor' ? 'text-white' : 'text-gray-500 hover:text-gray-900'
+                                    }`}
+                            >
+                                Tutors
+                            </button>
+                            <button
+                                onClick={() => setActiveCategory('license')}
+                                className={`relative z-10 w-32 py-2.5 text-sm font-semibold rounded-lg transition-colors duration-200 ${activeCategory === 'license' ? 'text-white' : 'text-gray-500 hover:text-gray-900'
+                                    }`}
+                            >
+                                License
+                            </button>
                         </div>
                     </div>
                 </div>
+
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={activeCategory}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className={`grid gap-8 ${activeCategory === 'school'
+                            ? 'grid-cols-1 md:grid-cols-3'
+                            : activeCategory === 'tutor'
+                                ? 'max-w-4xl mx-auto grid-cols-1 md:grid-cols-2'
+                                : 'max-w-md mx-auto grid-cols-1'
+                            }`}
+                    >
+                        {filteredPlans.map((plan) => (
+                            <div
+                                key={plan.name}
+                                className={`relative flex flex-col p-8 bg-white rounded-3xl transition-all duration-300 h-full ${plan.popular
+                                    ? 'ring-2 ring-indigo-600 shadow-2xl scale-100 md:scale-105 z-10'
+                                    : 'border border-gray-100 shadow-xl hover:shadow-2xl hover:-translate-y-1'
+                                    }`}
+                            >
+                                {plan.popular && (
+                                    <div className="absolute top-0 right-0 -mt-4 mr-4">
+                                        <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide bg-linear-to-r from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-200">
+                                            Most Popular
+                                        </span>
+                                    </div>
+                                )}
+                                {plan.badge && !plan.popular && (
+                                    <div className="absolute top-0 right-0 -mt-4 mr-4">
+                                        <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide bg-emerald-100 text-emerald-700 border border-emerald-200">
+                                            {plan.badge}
+                                        </span>
+                                    </div>
+                                )}
+
+                                <div className="mb-6">
+                                    <h3 className="text-xl font-bold text-gray-900">{plan.name}</h3>
+                                    <p className="mt-2 text-sm text-gray-500 leading-relaxed min-h-10">{plan.description}</p>
+                                </div>
+
+                                <div className="mb-6">
+                                    <span className="text-4xl font-extrabold text-gray-900 tracking-tight">{plan.price}</span>
+                                    <span className={`text-base font-medium ml-1 text-gray-500`}>
+                                        {plan.period === "(One-time)" ? "" : "৳"}
+                                        {plan.period}
+                                    </span>
+                                </div>
+
+                                <div className="flex-1">
+                                    {'groupedFeatures' in plan && plan.groupedFeatures ? (
+                                        <div className="space-y-6 mb-8">
+                                            {(plan.groupedFeatures as { title: string, items: string[] }[]).map((group, gIdx) => (
+                                                <div key={gIdx}>
+                                                    <h4 className="text-xs font-bold text-indigo-900 uppercase tracking-wider mb-3 pb-2 border-b border-gray-100">
+                                                        {group.title}
+                                                    </h4>
+                                                    <ul className="space-y-3">
+                                                        {group.items.map((feature, fIdx) => (
+                                                            <li key={fIdx} className="flex items-start">
+                                                                <div className="shrink-0 mt-0.5">
+                                                                    <CheckIcon />
+                                                                </div>
+                                                                <span className="ml-3 text-sm text-gray-700 font-medium">{feature}</span>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        <ul className="space-y-4 mb-8">
+                                            {plan.features?.map((feature, idx) => (
+                                                <li key={idx} className="flex items-start">
+                                                    <div className="shrink-0 mt-0.5">
+                                                        <CheckIcon />
+                                                    </div>
+                                                    <span className="ml-3 text-sm text-gray-700 font-medium">{feature}</span>
+                                                </li>
+                                            ))}
+                                            {plan.missing.map((feature, idx) => (
+                                                <li key={idx} className="flex items-start opacity-60">
+                                                    <div className="shrink-0 mt-0.5">
+                                                        <CrossIcon />
+                                                    </div>
+                                                    <span className="ml-3 text-sm text-gray-500 line-through">{feature}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+
+                                <button
+                                    className={`w-full block text-center rounded-xl px-6 py-4 text-sm font-bold transition-all duration-200 ${plan.popular
+                                        ? 'bg-linear-to-r from-indigo-600 to-violet-600 text-white hover:shadow-lg hover:shadow-indigo-300'
+                                        : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100 hover:text-indigo-800'
+                                        }`}
+                                >
+                                    {plan.cta}
+                                </button>
+                            </div>
+                        ))}
+                    </motion.div>
+                </AnimatePresence>
+
             </div>
         </section>
     );
