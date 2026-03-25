@@ -86,19 +86,22 @@ export default function Hero() {
                             variants={itemVariants}
                             className="flex flex-col sm:flex-row gap-4 pt-4"
                         >
-                            <motion.button
+                            <motion.a
+                                href="https://demo.campusbaba.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(79, 70, 229, 0.3)" }}
                                 whileTap={{ scale: 0.95 }}
-                                className="px-8 py-4 bg-linear-to-r from-indigo-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl transition-all duration-300"
+                                className="px-8 py-4 bg-linear-to-r from-indigo-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl transition-all duration-300 inline-block"
                             >
-                                Get Started Free
-                            </motion.button>
+                                Experience Demo
+                            </motion.a>
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 className="px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-indigo-600 hover:text-indigo-600 transition-all duration-300"
                             >
-                                Book Demo
+                                Book Live Demo
                             </motion.button>
                         </motion.div>
 
