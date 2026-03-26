@@ -6,8 +6,8 @@ import { useState, useEffect } from "react";
 import dashboard from "../../public/images/hero-sections/admin-dashboard.png"
 import parent from "../../public/images/hero-sections/parent-dashboard.png"
 import exammark from "../../public/images/hero-sections/exam-mark.png"
-import expense  from "../../public/images/hero-sections/expense.png"
-import pereport  from "../../public/images/hero-sections/pe-report.png"
+import expense from "../../public/images/hero-sections/expense.png"
+import pereport from "../../public/images/hero-sections/pe-report.png"
 
 export default function Hero() {
     const heroImages = [
@@ -83,9 +83,7 @@ export default function Hero() {
                             variants={itemVariants}
                             className="text-xl text-gray-600 leading-relaxed"
                         >
-                            A complete campus management platform with real-time communication,
-                            academic control, and smart insights. Everything you need to manage
-                            a modern school in one place.
+                           Smart insights for Admins, effortless classrooms for Teachers, and a monitoring window for Parents.
                         </motion.p>
 
                         <motion.div
@@ -117,11 +115,15 @@ export default function Hero() {
                             className="flex gap-8 pt-8 border-t border-gray-200"
                         >
                             <div>
-                                <p className="text-3xl font-bold text-indigo-600">500+</p>
+                                <p className="text-3xl font-bold text-indigo-600">10+</p>
                                 <p className="text-gray-600 mt-1">Schools Connected</p>
                             </div>
+                             <div>
+                                <p className="text-3xl font-bold text-indigo-600">19+</p>
+                                <p className="text-gray-600 mt-1">Tutors Connected</p>
+                            </div>
                             <div>
-                                <p className="text-3xl font-bold text-blue-600">50K+</p>
+                                <p className="text-3xl font-bold text-blue-600">500+</p>
                                 <p className="text-gray-600 mt-1">Active Users</p>
                             </div>
                             <div>

@@ -61,12 +61,9 @@ export default function Header() {
 
                     {/* CTA */}
                     <div className="flex items-center gap-4">
-                        <button className="hidden sm:block text-sm font-medium text-gray-600 hover:text-indigo-600 transition-colors">
-                            Sign In
-                        </button>
-                        <button className={`bg-linear-to-r from-indigo-600 to-blue-600 text-white rounded-xl font-medium shadow-lg shadow-indigo-200 hover:shadow-indigo-300 hover:scale-105 transition-all duration-300 text-sm ${isScrolled ? "px-5 py-2" : "px-6 py-2.5"}`}>
-                            Get Started
-                        </button>
+                        <a href="https://demo.campusbaba.com" target="_blank" rel="noopener noreferrer" className="px-2 py-2 bg-linear-to-r from-indigo-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl transition-all duration-300 inline-block animate-bounce">
+                            Demo Version
+                        </a>
                     </div>
                 </div>
             </div>
