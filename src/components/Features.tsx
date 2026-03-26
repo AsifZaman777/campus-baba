@@ -71,9 +71,9 @@ export default function Features() {
     };
 
     const tabs = [
-        { id: "admin" as TabType, label: "For Admin", icon: "👨‍�" },
-        { id: "teacher" as TabType, label: "For Teachers", icon: "�‍🏫" },
-        { id: "parent" as TabType, label: "Parent/Student", icon: "👨‍👩‍👧" },
+        { id: "admin" as TabType, label: "Admin Portal", icon: "" },
+        { id: "teacher" as TabType, label: "Teachers Portal", icon: "" },
+        { id: "parent" as TabType, label: "Parent/Student Portal", icon: "" },
     ];
 
     const activeFeature = features[activeTab].items[activeFeatureIndex];
@@ -170,13 +170,13 @@ export default function Features() {
                             ))}
                         </div>
 
-                        <motion.button
+                        {/* <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             className="inline-flex items-center justify-center px-8 py-3 bg-linear-to-r from-indigo-600 to-violet-600 text-white rounded-lg font-semibold shadow-lg shadow-indigo-200 transition-all duration-300 hover:shadow-xl mt-4"
                         >
                             Explore All Features
-                        </motion.button>
+                        </motion.button> */}
                     </div>                    {/* Right Side: Device Preview (Mac / iPhone) */}
                     <div className="relative min-h-125 lg:min-h-175 flex items-center justify-center p-2 lg:p-0 group lg:col-span-8">
                         {/* Background Splashes */}
