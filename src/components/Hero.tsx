@@ -4,12 +4,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import dashboard from "../../public/images/hero-sections/admin-dashboard.png"
-import attendance from "../../public/images/hero-sections/attendance.png"
+import parent from "../../public/images/hero-sections/parent-dashboard.png"
+import exammark from "../../public/images/hero-sections/exam-mark.png"
+import expense  from "../../public/images/hero-sections/expense.png"
+import pereport  from "../../public/images/hero-sections/pe-report.png"
 
 export default function Hero() {
     const heroImages = [
         dashboard,
-        attendance,
+        parent,
+        exammark,
+        expense,
+        pereport
     ];
 
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
