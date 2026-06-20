@@ -60,8 +60,8 @@ export default function Header() {
                     </nav>
 
                     {/* CTA */}
-                    <div className="flex items-center gap-4">
-                        <a href="https://demo.campusbaba.com" target="_blank" rel="noopener noreferrer" className="px-2 py-2 bg-linear-to-r from-indigo-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl transition-all duration-300 inline-block animate-bounce">
+                    <div className="flex items-center gap-2 sm:gap-4">
+                        <a href="https://demo.campusbaba.com" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm bg-linear-to-r from-indigo-600 to-blue-600 text-white rounded-lg font-bold shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 inline-block animate-bounce hover:animate-none">
                             Demo Version
                         </a>
                     </div>
