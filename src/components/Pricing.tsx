@@ -32,7 +32,7 @@ export default function Pricing() {
         {
             name: "SME Plan",
             category: "school",
-            price: "1,499",
+            price: "999",
             period: "/month",
             description: "Essential tools for admin & teacher management.",
             features: [
@@ -58,7 +58,7 @@ export default function Pricing() {
         {
             name: "Individual Plan",
             category: "tutor",
-            price: "1000",
+            price: "499",
             period: "/month",
             description: "Perfect for solo educators and tutors.",
             features: [
@@ -87,7 +87,7 @@ export default function Pricing() {
             name: "Campus Connect Plan",
             category: "school",
             price: "1,499",
-            period: "15/month (per student)",
+            period: "/month + ৳15/month (per student)",
             description: "Perfect combo of SME Plan + Student Pass.",
             features: [],
             groupedFeatures: [
@@ -101,7 +101,7 @@ export default function Pricing() {
                         "Reports & Analytics",
                         "Notice Management",
                         "Fee Tracking",
-                        "4 Admins & 12 Teachers",
+                        "6 Admins & 30 Teachers",
                         "Unlimited Support"
                     ]
                 },
@@ -356,10 +356,10 @@ export default function Pricing() {
                                     <p className="mt-2 text-sm text-gray-500 leading-relaxed min-h-10">{plan.description}</p>
                                 </div>
 
-                                <div className="mb-6">
+                                <div className="mb-6 flex items-baseline">
+                                    <span className="text-2xl font-bold text-gray-900 mr-1">৳</span>
                                     <span className="text-4xl font-extrabold text-gray-900 tracking-tight">{plan.price}</span>
                                     <span className={`text-base font-medium ml-1 text-gray-500`}>
-                                        {plan.period === "(One-time)" ? "" : "৳"}
                                         {plan.period}
                                     </span>
                                 </div>
